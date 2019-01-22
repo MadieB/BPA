@@ -1,0 +1,196 @@
+<!doctype html> 
+<html lang="en"> 
+<head> 
+	<meta charset="UTF-8" />
+	<title>Phaser - Making your first game, part 2</title>
+    <script src="//cdn.jsdelivr.net/phaser/2.2.2/phaser.min.js"></script>
+    <style type="text/css">
+        body {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+<script type="text/javascript">
+var game = new Phaser.Game(800, 1600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
+    var cursor;
+    var cat;
+    var larry;
+    var hitplatform;
+    var bushPlatform
+function preload() {
+    game.load.image('background', 'assets/background.png');
+    game.load.image('bush', 'assets/bush.png');
+    game.load.image('branch', 'assets/branches.png');
+    game.load.image('checkpoint', 'assets/checkpoint.png');
+    game.load.spritesheet('chiefLarry', 'assets/chiefLarry.png',66, 60);
+    game.load.spritesheet('cat1', 'assets/newcat1.png', 62, 50);
+    game.load.spritesheet('cat2', 'assets/cat2.png', 99, 60);
+    game.load.spritesheet('cat3', 'assets/cat3.png', 99, 60);
+    game.load.spritesheet('cat4', 'assets/cat4.png', 99, 60);
+}
+function create() {
+    cursors = game.input.keyboard.createCursorKeys();
+    game.physics.startSystem(Phaser.Physics.ARCADE);
+    game.add.sprite(0, 0, 'background');
+    
+    bushes = game.add.group();
+    
+    branches = game.add.group();
+    checkpoint = game.add.group();
+    base = game.add.group();
+    
+    bushes.enableBody = true;
+    branches.enableBody = true;
+    checkpoint.enableBody = true;
+    base.enableBody = true;
+    
+    var bushPlatform = bushes.create(150,300, 'bush');
+    bushPlatform.body.immovable = true;
+    
+    var bushPlatform = bushes.create(250,500, 'bush');
+    bushPlatform.body.immovable = true;
+    
+    var bushPlatform = bushes.create(525,420, 'bush');
+    bushPlatform.body.immovable = true;
+    
+    var bushPlatform = bushes.create(650,275, 'bush');
+    bushPlatform.body.imovable = true;
+    
+    var bushPlatform = bushes.create(0,300, 'bush');
+    bushPlatform.body.immovable = true;
+    
+    var bushPlatform = bushes.create(100,1450, 'bush');
+    bushPlatform.body.immovable = true;
+    
+    var bushPlatform = bushes.create(550,1450, 'bush');
+    bushPlatform.body.immovable = true;
+    
+    var bushPlatform = bushes.create(0,1375, 'bush');
+    bushPlatform.body.immovable = true;
+    
+    var bushPlatform = bushes.create(250,1325, 'bush');
+    bushPlatform.body.immovable = true;
+    
+    var bushPlatform = bushes.create(430,1280, 'bush');
+    bushPlatform.body.immovable = true;
+    
+    var bushPlatform = bushes.create(675,1350, 'bush');
+    bushPlatform.body.immovable = true;
+    
+    var bushPlatform = bushes.create(95,1215, 'bush');
+    bushPlatform.body.immovable = true;
+    
+    var bushPlatform = bushes.create(350,1050, 'bush');
+    bushPlatform.body.immovable = true;
+    
+    var bushPlatform = bushes.create(575,1175, 'bush');
+    bushPlatform.body.immovable = true;
+    
+    var bushPlatform = bushes.create(650,1000, 'bush');
+    bushPlatform.body.immovable = true;
+    
+    var bushPlatform = bushes.create(175,950, 'bush');
+    bushPlatform.body.immovable = true;
+    
+    var bushPlatform = bushes.create(480,850, 'bush');
+    bushPlatform.body.immovable = true;
+    
+    var bushPlatform = bushes.create(95,775, 'bush');
+    bushPlatform.body.immovable = true;
+    
+    var bushPlatform = bushes.create(325,680, 'bush');
+    bushPlatform.body.immovable = true;
+    
+    var bushPlatform = bushes.create(-25,600, 'bush');
+    bushPlatform.body.immovable = true;
+    
+    var bushPlatform = bushes.create(625,650, 'bush');
+    bushPlatform.body.immovable = true;
+    
+    var bushPlatform = bushes.create(-40,1100, 'bush');
+    bushPlatform.body.immovable = true;
+    
+    var bushPlatform = bushes.create(390,225, 'bush');
+    bushPlatform.body.immovable = true;
+    
+    cat = game.add.sprite(99, game.world.height, 'cat1');
+    game.physics.arcade.enable(cat);
+    cat.body.bounce.y = 0.2;
+    cat.body.gravity.y = 400;
+    cat.body.collideWorldBounds = true;
+    cat.animations.add('left',[0, 1, 2,],10, true);
+    cat.animations.add('right', [3, 4, 5],10, true);
+    
+    larry = game.add.sprite(66, game.world.height, 'chiefLarry');
+    game.physics.arcade.enable(larry);
+    larry.body.bounce.y = 0.2;
+    larry.body.gravity.y = 400;
+    larry.body.collideWorldBounds = true;
+    larry.animations.add('left',[0, 1, 2,],10, true);
+    larry.animations.add('right', [3, 4, 5],10, true);
+}
+function update() {
+ var hitPlatform = game.physics.arcade.collide(cat, bushes);
+    
+    cat.body.velocity.x = 0;
+    
+    if (cursors.left.isDown)
+    {
+        //  Move to the left
+        cat.body.velocity.x = -150;
+        cat.animations.play('left');
+    }
+    else if (cursors.right.isDown)
+    {
+        //  Move to the right
+        cat.body.velocity.x = 150;
+        cat.animations.play('right');
+    }
+    else
+    {
+        //  Stand still
+        cat.animations.stop();
+        cat.frame = 1;
+    }    
+      
+    
+    if (cursors.up.isDown && cat.body.touching.down && hitPlatform)
+    {
+        cat.body.velocity.y = -350;
+    }
+    
+    
+    //Larry's movements
+    larry.body.velocity.x = 0;
+    
+    if (game.input.keyboard.isDown(Phaser.Keyboard.KeyA))
+    {
+        //  Move to the left
+        larry.body.velocity.x = -150;
+        larry.animations.play('left');
+    }
+    else if (game.input.keyboard.isDown(Phaser.Keyboard.KeyD))
+    {
+        //  Move to the right
+        larry.body.velocity.x = 150;
+        larry.animations.play('right');
+    }
+    else
+    {
+        //  Stand still
+        larry.animations.stop();
+        larry.frame = 1;
+    }    
+      
+    
+    if (game.input.keyboard.isDown(Phaser.Keyboard.KeyW) && cat.body.touching.down && hitPlatform)
+    {
+        larry.body.velocity.y = -350;
+    }
+}
+</script>
+
+</body>
+</html>
