@@ -14,11 +14,7 @@
 
 <script type="text/javascript">
 var game = new Phaser.Game(800, 1600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
-    var cursor;
-    var cat;
-    var larry;
-    var hitplatform;
-    var bushPlatform
+   
 function preload() {
     game.load.image('background', 'assets/background.png');
     game.load.image('bush', 'assets/bush.png');
@@ -30,6 +26,12 @@ function preload() {
     game.load.spritesheet('cat3', 'assets/cat3.png', 99, 60);
     game.load.spritesheet('cat4', 'assets/cat4.png', 99, 60);
 }
+    var cursor;
+    var cat;
+    var larry;
+    var hitplatform;
+    var bushPlatform
+    
 function create() {
     cursors = game.input.keyboard.createCursorKeys();
     game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -46,6 +48,7 @@ function create() {
     checkpoint.enableBody = true;
     base.enableBody = true;
     
+    //platforms players jump on
     var bushPlatform = bushes.create(150,300, 'bush');
     bushPlatform.body.immovable = true;
     
@@ -115,25 +118,32 @@ function create() {
     var bushPlatform = bushes.create(390,225, 'bush');
     bushPlatform.body.immovable = true;
     
+    //player 1 
     cat = game.add.sprite(99, game.world.height, 'cat1');
     game.physics.arcade.enable(cat);
     cat.body.bounce.y = 0.2;
     cat.body.gravity.y = 400;
     cat.body.collideWorldBounds = true;
+    //animations for left and right
     cat.animations.add('left',[0, 1, 2,],10, true);
     cat.animations.add('right', [3, 4, 5],10, true);
     
-    larry = game.add.sprite(66, game.world.height, 'chiefLarry');
+    
+    //player 2
+    larry = game.add.sprite(game.world.width - 250, game.world.height, 'chiefLarry');
     game.physics.arcade.enable(larry);
     larry.body.bounce.y = 0.2;
     larry.body.gravity.y = 400;
     larry.body.collideWorldBounds = true;
+    //animations for left and right
     larry.animations.add('left',[0, 1, 2,],10, true);
     larry.animations.add('right', [3, 4, 5],10, true);
 }
 function update() {
  var hitPlatform = game.physics.arcade.collide(cat, bushes);
+ var hitPlatform = game.physics.arcade.collide(larry, bushes);
     
+    //cat movements
     cat.body.velocity.x = 0;
     
     if (cursors.left.isDown)
@@ -163,6 +173,7 @@ function update() {
     
     
     //Larry's movements
+
     larry.body.velocity.x = 0;
     
     if (game.input.keyboard.isDown(Phaser.Keyboard.KeyA))
