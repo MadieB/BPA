@@ -18,13 +18,10 @@ var game = new Phaser.Game(800, 1600, Phaser.AUTO, '', { preload: preload, creat
 function preload() {
     game.load.image('background', 'assets/background.png');
     game.load.image('bush', 'assets/bush.png');
-    game.load.image('branch', 'assets/branches.png');
     game.load.image('checkpoint', 'assets/checkpoint.png');
-    game.load.spritesheet('chiefLarry', 'assets/chiefLarry.png',66, 60);
-    game.load.spritesheet('cat1', 'assets/newcat1.png', 62, 50);
-    game.load.spritesheet('cat2', 'assets/cat2.png', 99, 60);
-    game.load.spritesheet('cat3', 'assets/cat3.png', 99, 60);
-    game.load.spritesheet('cat4', 'assets/cat4.png', 99, 60);
+    game.load.spritesheet('chiefLarry', 'assets/Larry.png',66, 60);
+    game.load.spritesheet('cat1', 'assets/cat1.png', 62, 50);
+    
 }
     var cursor;
     var cat;
