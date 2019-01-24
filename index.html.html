@@ -29,6 +29,9 @@ function preload() {
     var hitplatform;
     var bushPlatform;
     
+    var score = 0;
+    var scoreText;
+    
 function create() {
     cursors = game.input.keyboard.createCursorKeys();
     game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -118,7 +121,6 @@ function create() {
     cat.body.bounce.y = 0.2;
     cat.body.gravity.y = 500;
     cat.body.collideWorldBounds = true;
-    //animations for left and right
     cat.animations.add('left',[0, 1, 2,],10, true);
     cat.animations.add('right', [3, 4, 5],10, true);
     
@@ -135,6 +137,9 @@ function create() {
     
     //camera info
      game.camera.follow(player);
+    
+    //score
+    scoreText = game.add.text(100, 100, 'score: 0', { font: "20px Arial", fill: "#ffffff", align: "left"  });
 }
 function update() {
  var hitPlatform = game.physics.arcade.collide(cat, bushes);
@@ -163,7 +168,7 @@ function update() {
     }    
       
     
-    if (cursors.up.isDown && cat.body.touching.down && hitPlatform)
+    if (cursors.up.isDown)
     {
         cat.body.velocity.y = -350;
     }
@@ -205,6 +210,15 @@ function render() {
     game.debug.spriteCoords(player, 32, 500);
 
 }
+    
+function score (cat, bush) {
+
+    if(game.physics.arcade.collide(cat, bushes) = true){
+     //  Add and update the score
+    score += 10;
+    scoreText.text = 'Score: ' + score;
+    }
+}    
     
 </script>
 
