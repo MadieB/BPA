@@ -28,9 +28,11 @@ function preload() {
     var larry;
     var hitplatform;
     var bushPlatform;
+    var checkpoint;
     
     var score = 0;
     var scoreText;
+    var introText;
     
 function create() {
     cursors = game.input.keyboard.createCursorKeys();
@@ -115,6 +117,10 @@ function create() {
     var bushPlatform = bushes.create(390,225, 'bush');
     bushPlatform.body.immovable = true;
     
+    //checkpoint / end point
+    var checkpoint = checkpoint.create(390,225, 'checkpoint');
+    checkpoint.body.immovable = true;
+    
     //player 1 
     cat = game.add.sprite(99, game.world.height, 'cat1');
     game.physics.arcade.enable(cat);
@@ -136,10 +142,15 @@ function create() {
     larry.animations.add('right', [3, 4, 5],10, true);
     
     //camera info
-     game.camera.follow(player);
+     game.camera.follow(cat);
     
     //score
     scoreText = game.add.text(100, 100, 'score: 0', { font: "20px Arial", fill: "#ffffff", align: "left"  });
+    
+    //text
+    introText = game.add.text(game.world.centerX,game.world.centerY,' ', { font: '84px Arial', fill: '#fff' });
+    introText.anchor.setTo(0.5, 0.5);
+    introText.visible = false;
 }
 function update() {
  var hitPlatform = game.physics.arcade.collide(cat, bushes);
@@ -203,11 +214,15 @@ function update() {
         larry.body.velocity.y = -350;
     }
     
+        introText.visible = false;
+    game.physics.arcade.overlap(larry, cat, caughtCat, null, this);
+    game.physics.arcade.overlap(cat, checkpoint, topReached, null, this);
+    
 }
 function render() {
 
     game.debug.cameraInfo(game.camera, 32, 32);
-    game.debug.spriteCoords(player, 32, 500);
+    game.debug.spriteCoords(cat, 32, 500);
 
 }
     
@@ -219,6 +234,20 @@ function score (cat, bush) {
     scoreText.text = 'Score: ' + score;
     }
 }    
+    
+function caughtCat{
+    cat.kill();
+    
+    stateText.text=" GAME OVER \n Larry Wins";
+    stateText.visible = true;
+}
+function topReached{
+     cat.body.velocity.setTo(0, 0);
+     larry.body.velocity.setTo(0, 0);
+    
+    stateText.text=" GAME OVER \n Cat Wins";
+    stateText.visible = true;
+}
     
 </script>
 
