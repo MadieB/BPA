@@ -27,7 +27,7 @@ function preload() {
     var cat;
     var larry;
     var hitplatform;
-    var bushPlatform
+    var bushPlatform;
     
 function create() {
     cursors = game.input.keyboard.createCursorKeys();
@@ -35,13 +35,10 @@ function create() {
     game.add.sprite(0, 0, 'background');
     
     bushes = game.add.group();
-    
-    branches = game.add.group();
     checkpoint = game.add.group();
     base = game.add.group();
     
     bushes.enableBody = true;
-    branches.enableBody = true;
     checkpoint.enableBody = true;
     base.enableBody = true;
     
@@ -135,6 +132,9 @@ function create() {
     //animations for left and right
     larry.animations.add('left',[0, 1, 2,],10, true);
     larry.animations.add('right', [3, 4, 5],10, true);
+    
+    //camera info
+     game.camera.follow(player);
 }
 function update() {
  var hitPlatform = game.physics.arcade.collide(cat, bushes);
@@ -193,12 +193,19 @@ function update() {
     }    
       
     
-    if (game.input.keyboard.isDown(Phaser.Keyboard.KeyW) && cat.body.touching.down && hitPlatform)
+    if (game.input.keyboard.isDown(Phaser.Keyboard.KeyW) && larry.body.touching.down && hitPlatform)
     {
         larry.body.velocity.y = -350;
     }
+    
 }
+function render() {
 
+    game.debug.cameraInfo(game.camera, 32, 32);
+    game.debug.spriteCoords(player, 32, 500);
+
+}
+    
 </script>
 
 </body>
