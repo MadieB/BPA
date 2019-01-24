@@ -122,7 +122,7 @@ function create() {
     cat = game.add.sprite(99, game.world.height, 'cat1');
     game.physics.arcade.enable(cat);
     cat.body.bounce.y = 0.2;
-    cat.body.gravity.y = 400;
+    cat.body.gravity.y = 500;
     cat.body.collideWorldBounds = true;
     //animations for left and right
     cat.animations.add('left',[0, 1, 2,],10, true);
@@ -133,7 +133,7 @@ function create() {
     larry = game.add.sprite(game.world.width - 250, game.world.height, 'chiefLarry');
     game.physics.arcade.enable(larry);
     larry.body.bounce.y = 0.2;
-    larry.body.gravity.y = 400;
+    larry.body.gravity.y = 500;
     larry.body.collideWorldBounds = true;
     //animations for left and right
     larry.animations.add('left',[0, 1, 2,],10, true);
@@ -201,6 +201,7 @@ function update() {
         larry.body.velocity.y = -350;
     }
 }
+
 </script>
 
 </body>
