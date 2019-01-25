@@ -157,6 +157,9 @@ function create() {
 }
 function update() {
  var hitPlatform = game.physics.arcade.collide(cat, bushes);
+    //  Add and update the score
+    score += 10;
+    scoreText.text = 'Score: ' + score;
  var hitPlatform = game.physics.arcade.collide(larry, bushes);
     
     //cat movements
@@ -220,7 +223,7 @@ function update() {
         
     game.physics.arcade.overlap(larry, cat, caughtCat, null, this);
     game.physics.arcade.overlap(cat, checkpoint, topReached, null, this);
-    
+
 }
 function render() {
 
@@ -228,16 +231,6 @@ function render() {
     game.debug.spriteCoords(cat, 32, 500);
 
 }
-    
-function score (cat, bush) {
-
-    if(game.physics.arcade.collide(cat, bushes) = true){
-     //  Add and update the score
-    score += 10;
-    scoreText.text = 'Score: ' + score;
-    }
-}    
-    
 function caughtCat{
     cat.kill();
     
@@ -245,7 +238,6 @@ function caughtCat{
     introText.visible = true;
 }
 function topReached{
-    
     
     introText.text=" GAME OVER \n Cat Wins";
     introText.visible = true;
