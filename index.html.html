@@ -150,6 +150,11 @@ function create() {
     //score
     scoreText = game.add.text(100, 100, 'score: 0', { font: "20px Arial", fill: "#ffffff", align: "left"  });
     
+    //  Text
+    introText = game.add.text(game.world.centerX,game.world.centerY,' ', { font: '84px Arial', fill: '#fff' });
+    introText.anchor.setTo(0.5, 0.5);
+    introText.visible = false;
+    
 }
 function update() {
  var hitPlatform = game.physics.arcade.collide(cat, bushes);
@@ -237,15 +242,14 @@ function score (cat, bush) {
 function caughtCat{
     cat.kill();
     
-    stateText.text=" GAME OVER \n Larry Wins";
-    stateText.visible = true;
+    introText.text=" GAME OVER \n Larry Wins";
+    introText.visible = true;
 }
 function topReached{
-     cat.body.velocity.setTo(0, 0);
-     larry.body.velocity.setTo(0, 0);
     
-    stateText.text=" GAME OVER \n Cat Wins";
-    stateText.visible = true;
+    
+    introText.text=" GAME OVER \n Cat Wins";
+    introText.visible = true;
 }
     
 </script>
